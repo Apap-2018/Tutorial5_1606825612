@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title th:replace="fragments/fragment :: title('Add Car')"></title>
+</head>
+
+<body>
+	<h2>Hello!</h2>
+	
+	<h3>Tambah Mobil</h3>
+	<form th:action="@{/car/add/} + ${dealer.id}" th:object="${dealer}" method="POST">
+		<input type="hidden" th:field="*{id}" /> 
+		
+		<!--  hidden berguna untuk ngirim dealer idnya, karena car pasti berada dalam sebuah
+		dealer -->
+		<table>
+			<thead>
+				<tr>
+					<th>Brand</th>
+					<th>Type</th>
+					<th>Price</th>
+					<th>Amount</th>
+					<th>
+						<button name="add" value="submit">ADD</button>
+					</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="car,IterationStatus : *{listCar}">
+					<td>
+						<input th:field="*{listCar[__${IterationStatus.index}__].brand}" />
+					</td>
+					<td>
+						<input th:field="*{listCar[__${IterationStatus.index}__].type}" />
+						<!-- jadi __ ini utk dijalanin terlebih dahulu, kalau ga keluar tulisanny
+						bukan indexnya -->
+					</td>
+					<td>
+						<input th:field="*{listCar[__${IterationStatus.index}__].price}" />
+					</td>
+					<td>
+						<input th:field="*{listCar[__${IterationStatus.index}__].amount}" />
+					</td>
+					<td>
+						 <button type="submit" name="delete" 
+                th:value="${IterationStatus.index}">Remove row</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<button name="save" type="submit">Save</button>
+	</form>
+</body>
+</html>

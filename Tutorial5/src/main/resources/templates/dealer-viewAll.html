@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>View All Dealer</title>
+</head>
+
+<body>
+	<table th:action="@{/dealer/viewAll}" th:object="${dealer}" method="POST">
+		<thead>
+			<tr>
+				<td>Alamat</td>
+				<td>No Telp</td>	
+			</tr>
+		<thead/>
+		<tbody>
+			<div th:each="dealer : ${dealer}">
+				<tr>
+					<td th:text="${dealer.alamat}"></td>
+					<td th:text="${dealer.noTelp}"></td>
+				<tr/>
+			</div>
+		<tbody/>
+	</table>
+</body>
+
+</html>
